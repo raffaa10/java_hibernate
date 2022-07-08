@@ -1,0 +1,13 @@
+drop table if exists DEPARTMENT;
+drop table if exists EMPLOYEE;
+drop table if exists SALARY_GRADE;
+drop table if exists TIMEKEEPER;
+create table DEPARTMENT (DEPT_ID integer not null, DEPT_NAME varchar(255) not null, DEPT_NO varchar(20) not null, LOCATION varchar(255), primary key (DEPT_ID)) type=MyISAM;
+create table EMPLOYEE (EMP_ID bigint not null, EMP_NAME varchar(50) not null, EMP_NO varchar(20) not null, HIRE_DATE date not null, IMAGE longblob, JOB varchar(30) not null, SALARY float not null, DEPT_ID integer not null, MNG_ID bigint, primary key (EMP_ID)) type=MyISAM;
+create table SALARY_GRADE (GRADE integer not null, HIGH_SALARY float not null, LOW_SALARY float not null, primary key (GRADE)) type=MyISAM;
+create table TIMEKEEPER (Timekeeper_Id varchar(36) not null, Date_Time datetime not null, In_Out char(1) not null, EMP_ID bigint not null, primary key (Timekeeper_Id)) type=MyISAM;
+alter table DEPARTMENT add constraint UK504cmb4vdtk4qhlyo0gunu2ew unique (DEPT_NO);
+alter table EMPLOYEE add constraint UK7fqco7dry69w4ba8sh8qn21b unique (EMP_NO);
+alter table EMPLOYEE add constraint FK65bgags9wjppbn5x7vjcqhext foreign key (DEPT_ID) references DEPARTMENT (DEPT_ID);
+alter table EMPLOYEE add constraint FKkcawqtfitoe3w528metq1o03c foreign key (MNG_ID) references EMPLOYEE (EMP_ID);
+alter table TIMEKEEPER add constraint FKifwkxix749p4scwkaeybcj4uc foreign key (EMP_ID) references EMPLOYEE (EMP_ID);
